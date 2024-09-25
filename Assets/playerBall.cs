@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class playerBall : MonoBehaviour
 {
@@ -42,9 +43,11 @@ public class playerBall : MonoBehaviour
         else if (other.tag == "Finish") {
             if(itemCount == manager.totalItemCount) {
                 //Game Clear!
+                SceneManager.LoadScene("Example2_0");
             }
             else {
                 //Restart..
+                SceneManager.LoadScene("Example1_0");
             }
         }
     }
