@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class playerBall : MonoBehaviour
 {
-
-    public float jumpPower = 10;
+    public int itemCount;
+    public float jumpPower;
+    public GameManagerLogic manager;
     bool isJump;
     Rigidbody rigid;
+    AudioSource audio;
     void Awake() {
         isJump = false;
         rigid = GetComponent<Rigidbody>();
+        audio = GetComponent<AudioSource>();
     }
 
     void Update() {
@@ -27,7 +30,23 @@ public class playerBall : MonoBehaviour
     }
 
     void OnCollisionEnter(Collision collision) {
-        if(collision.gameObject.name == "Floor");
+        if(collision.gameObject.tag == "Floor");
             isJump = false;
     }
+    void OnTriggerEnter(Collider other){
+        if (other.tag == "Coin") {
+            itemCount++;
+            audio.Play();
+            other.gameObject.SetActive(false);
+        }
+        else if (other.tag == "Finish") {
+            if(itemCount == manager.totalItemCount) {
+                //Game Clear!
+            }
+            else {
+                //Restart..
+            }
+        }
+    }
+
 }

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ItemCan : MonoBehaviour
 {
-    
     public float rotateSpeed;
     void Update()
     {
