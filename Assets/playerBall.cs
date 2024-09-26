@@ -39,15 +39,19 @@ public class playerBall : MonoBehaviour
             itemCount++;
             audio.Play();
             other.gameObject.SetActive(false);
+            manager.GetItem(itemCount);
         }
         else if (other.tag == "Finish") {
             if(itemCount == manager.totalItemCount) {
-                //Game Clear!
-                SceneManager.LoadScene("Example2_0");
+                //Game Clear! && Next Stage
+                if (manager.stage == 2)
+                    SceneManager.LoadScene(0);
+                else
+                SceneManager.LoadScene(manager.stage+1);
             }
             else {
                 //Restart..
-                SceneManager.LoadScene("Example1_0");
+                SceneManager.LoadScene(manager.stage);
             }
         }
     }
