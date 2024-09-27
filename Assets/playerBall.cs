@@ -11,6 +11,8 @@ public class playerBall : MonoBehaviour
     bool isJump;
     Rigidbody rigid;
     AudioSource audio;
+    public AudioClip jumpClip;
+    public AudioClip CoinClip;
     void Awake() {
         isJump = false;
         rigid = GetComponent<Rigidbody>();
@@ -21,6 +23,7 @@ public class playerBall : MonoBehaviour
         if(!isJump && Input.GetButtonDown("Jump")) {
             isJump = true;
             rigid.AddForce(new Vector3(0,jumpPower,0), ForceMode.Impulse);
+            audio.PlayOneShot(jumpClip);
         }
     }
     void FixedUpdate()
@@ -37,14 +40,14 @@ public class playerBall : MonoBehaviour
     void OnTriggerEnter(Collider other){
         if (other.tag == "Coin") {
             itemCount++;
-            audio.Play();
+            audio.PlayOneShot(CoinClip);
             other.gameObject.SetActive(false);
             manager.GetItem(itemCount);
         }
         else if (other.tag == "Finish") {
             if(itemCount == manager.totalItemCount) {
                 //Game Clear! && Next Stage
-                if (manager.stage == 2)
+                if (manager.stage == 3)
                     SceneManager.LoadScene(0);
                 else
                 SceneManager.LoadScene(manager.stage+1);
